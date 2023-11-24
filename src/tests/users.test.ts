@@ -2,7 +2,7 @@ import request from 'supertest';
 import express from 'express';
 import { faker } from '@faker-js/faker';
 
-import userRouter from '../src/routes/userRouter';
+import userRouter from '../routes/userRouter';
 
 const app = express();
 app.use(express.json());
