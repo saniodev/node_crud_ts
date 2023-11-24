@@ -1,9 +1,15 @@
-- Foi desenvolvido com `Node.js` e `ORM Prisma`.
+# Microsserviço de Gerenciamento de Usuários em Node.js
+### Configuração do Ambiente
 
+- Certifique-se de ter o Node.js instalado em sua máquina.
 
-![image](https://github.com/saniodev/node_crud_ts/assets/93998809/1b9310f0-fce0-4a2e-b8fd-32034e0f439f)
+Este projeto é um microsserviço de gerenciamento de usuários desenvolvido com Node.js e ORM Prisma. O objetivo principal é implementar operações CRUD (Create, Read, Update, Delete), seguindo as práticas de arquitetura limpa e Domain-Driven Design (DDD), além de incluir testes unitários para garantir a robustez do sistema.
 
-
+## Stacks Utilizadas
+| Tecnologia        | Descrição                                                  |
+|-------------------|------------------------------------------------------------|
+| Node.js e Express | Utilizados para criar o microsserviço.                     |
+| ORM               | Prisma foi escolhido para interação com o banco de dados.   |
 
 ## Como Rodar o Projeto com Docker
 #### Para executar o projeto usando Docker, siga os passos abaixo:
@@ -111,3 +117,33 @@
   http://localhost:3000/swagger
 ```
 
+
+## Rotas Principais
+
+| Método | Rota                 | Middleware            | Controller                  | Descrição                                      |
+|--------|----------------------|-----------------------|-----------------------------|------------------------------------------------|
+| POST   | /create              | authName, authEmail, authPass | createUserController    | Cria um novo usuário                           |
+| GET    | /list                | N/A                   | findAllUsersController     | Lista todos os usuários cadastrados             |
+| PUT    | /update/:id          | authName, authEmail, authPass | updateUserController      | Atualiza as informações de um usuário específico |
+| DELETE | /delete/:id          | N/A                   | deleteUserController      | Deleta um usuário pelo ID                      |
+
+## Rotas Auxiliares
+
+| Método | Rota       | Middleware | Controller | Descrição                              |
+|--------|-------------|-------------|-------------|----------------------------------------|
+| N/A    | /swagger    | N/A         | N/A         | Rota para visualizar a documentação Swagger |
+| N/A    | /user       | N/A         | N/A         | Rota principal para as operações de usuário |
+
+
+# Execução de Testes com Jest
+Os testes unitários foram implementados utilizando o framework Jest. Esses testes garantem que as diferentes partes do microsserviço funcionem conforme o esperado, mantendo a robustez do sistema.
+
+![image](https://github.com/LaiFrance/readme/assets/91226847/3b042319-c9e2-4bf5-8603-1d27dedaa698)
+
+# Instruções para Execução
+
+Após a instalação das dependências, os testes podem ser executados utilizando o seguinte comando:
+
+```
+yarn test
+```
