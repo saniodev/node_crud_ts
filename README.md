@@ -52,6 +52,18 @@
  docker-compose up -d
 ```
 
+### Criação das Tabelas do Banco de Dados
+#### Rode o comando para criar as tabelas na raiz do projeto:
+
+```javascript
+  yarn migrate
+```
+#### ou
+
+```javascript
+  npm run migrate
+```
+
 #### e depois 
 
 ```javascript
@@ -68,19 +80,6 @@
 ```javascript
   npm run dev
 ```
-
-### Criação das Tabelas do Banco de Dados
-#### Rode o comando para criar as tabelas na raiz do projeto:
-
-```javascript
-  yarn migrate
-```
-#### ou
-
-```javascript
-  npm run migrate
-```
-
 
 ### Rodando Tests da Api
 #### Rode o comando para execução de tests da aplicação, na raiz do projeto:
