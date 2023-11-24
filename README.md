@@ -1,5 +1,9 @@
 - Foi desenvolvido com `Node.js` e `ORM Prisma`.
 
+
+![test](https://github.com/saniodev/node_crud_ts/assets/93998809/a83292dc-f18f-45e6-bf1c-5709edb7c976)
+
+
 ## Como Rodar o Projeto com Docker
 #### Para executar o projeto usando Docker, siga os passos abaixo:
 
