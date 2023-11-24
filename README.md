@@ -46,6 +46,12 @@
 ```javascript
   yarn install
 ```
+#### e depois e necesario consulta o a parte de como roda o projeto com docker
+
+```javascript
+ docker-compose up -d
+```
+
 #### e depois 
 
 ```javascript
