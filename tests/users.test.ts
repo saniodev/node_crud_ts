@@ -1,42 +1,74 @@
 import request from 'supertest';
 import express from 'express';
+import { faker } from '@faker-js/faker';
+
 import userRouter from '../src/routes/userRouter';
 
 const app = express();
+app.use(express.json());
+app.use('/user', userRouter);
 
-app.use(userRouter);
+describe('User Routes', () => {
+  let createdUserId: number | undefined;
 
-describe('Test user routes', () => {
-    it('should create a new user', async () => {
-        // const response = await request(app)
-        //     .post('/user/create')
-        //     .send({
-        //         name: 'Samuel Lucas',
-        //         email: 'samuellucas24383@gmail.com',
-        //         password: '123456789'
-        //     });
-        // expect(response.body.message).toContain("User created successfully");
-        
-    });
+  it('should create a new user', async () => {
+    const userData = {
+      name: 'John Doe',
+      email: faker.internet.email(),
+      password: 'password123',
+    };
 
-    // it('should get a list of all users', async () => {
-    //     const response = await request(app).get('/list');
-    //     expect(response.statusCode).toBe(200);
-    // });
+    const response = await request(app)
+      .post('/user/create')
+      .send(userData)
+      .expect(201);
 
-    // it('should update a user', async () => {
-    //     const response = await request(app)
-    //         .put('/update/1')
-    //         .send({
-    //             name: 'Updated User',
-    //             email: 'updateduser@example.com',
-    //             password: 'updatedpassword'
-    //         });
-    //     expect(response.statusCode).toBe(200);
-    // });
+    expect(response.body).toHaveProperty('user');
+    expect(response.body.user.name).toBe(userData.name);
+    expect(response.body.user.email).toBe(userData.email);
 
-    // it('should delete a user', async () => {
-    //     const response = await request(app).delete('/delete/1');
-    //     expect(response.statusCode).toBe(200);
-    // });
+    createdUserId = response.body.user.id;
+  });
+
+  it('should get a list of all users', async () => {
+    const response = await request(app)
+      .get('/user/list')
+      .expect(200);
+
+    expect(response.body).toHaveProperty('users');
+    expect(Array.isArray(response.body.users)).toBe(true);
+  });
+
+  it('should update a user', async () => {
+    if (!createdUserId) {
+      throw new Error('User ID not found. Make sure to run the creation test first.');
+    }
+
+    const updatedUserData = {
+      name: 'Updated User',
+      email: faker.internet.email(),
+      password: 'updatedpassword',
+    };
+
+    const response = await request(app)
+      .put(`/user/update/${createdUserId}`)
+      .send(updatedUserData)
+      .expect(200);
+
+    expect(response.body).toHaveProperty('user');
+    expect(response.body.user.name).toBe(updatedUserData.name);
+    expect(response.body.user.email).toBe(updatedUserData.email);
+  });
+
+  it('should delete a user', async () => {
+    if (!createdUserId) {
+      throw new Error('User ID not found. Make sure to run the creation test first.');
+    }
+
+    const response = await request(app)
+      .delete(`/user/delete/${createdUserId}`)
+      .expect(200);
+
+    expect(response.body).toHaveProperty('message', 'User deleted successfully');
+  });
 });
